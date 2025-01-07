@@ -418,6 +418,17 @@ proc mainLoop*(
     clist = overseer.clist
     currentSlot = overseer.beaconClock.now().slotOrZero()
 
+  notice "Sync overseer starting",
+         wall_slot = currentSlot,
+         dag_head_slot = dag.head.slot,
+         dag_finalized_head_slot = dag.finalizedHead.slot,
+         dag_horizon = dag.horizon(),
+         dag_backfill_slot = dag.backfill.slot,
+         untrusted_tail = shortLog(clist.tail),
+         untrusted_head = shortLog(clist.head)
+
+  quit 1
+
   if overseer.isWithinWeakSubjectivityPeriod(currentSlot):
     # Starting forward sync manager/monitor.
     overseer.forwardSync.start()

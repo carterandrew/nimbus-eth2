@@ -388,7 +388,7 @@ proc initFullNode(
       getLocalWallSlot()
 
   func getUntrustedFrontfillSlot(): Slot =
-    dag.horizon
+    getFirstSlotAtFinalizedEpoch()
 
   func getFrontfillSlot(): Slot =
     max(dag.frontfill.get(BlockId()).slot, dag.horizon)

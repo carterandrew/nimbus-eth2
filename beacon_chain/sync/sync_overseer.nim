@@ -495,6 +495,8 @@ proc mainLoop*(
         quit 1
 
       overseer.untrustedInProgress = false
+      # Reset status bar
+      overseer.statusMsg = Opt.none(string)
 
       # When we finished state rebuilding process - we could start forward
       # SyncManager which could perform finish sync.

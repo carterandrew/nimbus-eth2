@@ -514,7 +514,7 @@ proc addBackfillBlockData*(
       # 100%, but its not enough.
 
     if not updateState(dag, dag.clearanceState, clearanceBlock, true, cache,
-                       dag.updateFlags):
+                       updateFlags1):
       error "Unable to load clearance state for parent block, " &
             "database corrupt?", clearanceBlock = shortLog(clearanceBlock)
       return err(VerifierError.MissingParent)

@@ -184,7 +184,7 @@ proc updatePerformance(overseer: SyncOverseerRef, startTick: Moment,
 
   # Update status string
   overseer.statusMsg = Opt.some(
-    timeleft.toTimeLeftString() & " (" &
+    "fill: " & timeleft.toTimeLeftString() & " (" &
     (done * 100).formatBiggestFloat(ffDecimal, 2) & "%) " &
     overseer.avgSpeed.formatBiggestFloat(ffDecimal, 4) &
     "slots/s (" & $dag.head.slot & ")")

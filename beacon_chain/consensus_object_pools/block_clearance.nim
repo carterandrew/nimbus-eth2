@@ -509,15 +509,15 @@ proc addBackfillBlockData*(
         withBlck(parentBlock):
           forkyBlck.message.state_root
       clearanceBlock = BlockSlotId.init(parent.bid, forkyBlck.message.slot)
-      updateFlags1 = dag.updateFlags
-      # {skipLastStateRootCalculation} flag here could improve performance by
-      # 100%, but its not enough.
+      updateFlags1 = dag.updateFlags + {skipLastStateRootCalculation}
 
     if not updateState(dag, dag.clearanceState, clearanceBlock, true, cache,
                        updateFlags1):
       error "Unable to load clearance state for parent block, " &
             "database corrupt?", clearanceBlock = shortLog(clearanceBlock)
       return err(VerifierError.MissingParent)
+
+    dag.clearanceState.setStateRoot(trustedStateRoot)
 
     let proposerVerifyTick = Moment.now()
 
